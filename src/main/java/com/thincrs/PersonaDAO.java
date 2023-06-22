@@ -13,17 +13,12 @@ public class PersonaDAO {
 	static final String USER = "root";
 	static final String PASS = "thincrs2023";
 	static final String QUERY_CARGARTODAS = "select * from persona;";
+	static final String QUERY_INSERTAR = "insert into persona (nombre, apellidos, fecha_nacimiento, genero, entidad_nacimiento, curp) values (?, ?, ?, ?, ?, ?);";
+	static final String QUERY_ELIMINAR = "delete from persona where id = ?;";
 
 	public List<Persona> cargarTodas() {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		Connection conn;
-		try {
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+			Connection conn = obtenerConexion();
 			PreparedStatement sentencia = conn.prepareStatement(QUERY_CARGARTODAS);
 			
 			ResultSet resultSetPersonas = sentencia.executeQuery();
@@ -31,7 +26,7 @@ public class PersonaDAO {
 			List<Persona> todasPersonas = new ArrayList<Persona>();
 			
 			while(resultSetPersonas.next()) {
-				todasPersonas.add(new Persona(resultSetPersonas.getInt("id"), resultSetPersonas.getString("nombre")));
+				todasPersonas.add(construirPersona(resultSetPersonas));
 			}
 			
 			conn.close();
@@ -41,5 +36,66 @@ public class PersonaDAO {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	private Persona construirPersona(ResultSet resultSetPersonas) throws SQLException {
+		return new Persona(
+			resultSetPersonas.getInt("id"), 
+			resultSetPersonas.getString("nombre"),
+			resultSetPersonas.getString("apellidos"),
+			resultSetPersonas.getDate("fecha_nacimiento"),
+			resultSetPersonas.getString("genero"),
+			resultSetPersonas.getString("entidad_nacimiento"),
+			resultSetPersonas.getString("curp")			
+		);
+	}
+	
+	public void insertarPersona(Persona persona) {
+		try {
+			Connection conn = obtenerConexion();
+			PreparedStatement sentencia = conn.prepareStatement(QUERY_INSERTAR);
+			
+			sentencia.setString(1, persona.getNombre());
+			sentencia.setString(2, persona.getApellidos());
+			sentencia.setDate(3, persona.getFechaNacimiento());
+			sentencia.setString(4, persona.getGenero());
+			sentencia.setString(5, persona.getEntidadNacimiento());
+			sentencia.setString(6, persona.getCurp());
+			
+			System.out.println(sentencia.toString());
+			
+			sentencia.execute();
+			
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void eliminarPersona(int id) {
+		try {
+			Connection conn = obtenerConexion();
+			PreparedStatement sentencia = conn.prepareStatement(QUERY_ELIMINAR);
+			
+			sentencia.setInt(1, id);
+			
+			System.out.println(sentencia.toString());
+			
+			sentencia.execute();
+			
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private Connection obtenerConexion() throws SQLException {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return DriverManager.getConnection(DB_URL, USER, PASS);
 	}
 }

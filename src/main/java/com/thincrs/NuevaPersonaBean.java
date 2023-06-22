@@ -1,27 +1,21 @@
 package com.thincrs;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
 
-public class Persona {
-	private int id;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
+
+@Named
+@RequestScoped
+public class NuevaPersonaBean {
 	private String nombre;
 	private String apellidos;
-	private Date fechaNacimiento;
+	private String fechaNacimiento;
 	private String genero;
 	private String entidadNacimiento;
 	private String curp;
-
-	public Persona(int id, String nombre, String apellidos, Date fechaNacimiento, String genero,
-			String entidadNacimiento, String curp) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-		this.fechaNacimiento = fechaNacimiento;
-		this.genero = genero;
-		this.entidadNacimiento = entidadNacimiento;
-		this.curp = curp;
-	}
 
 	public String getApellidos() {
 		return apellidos;
@@ -35,16 +29,12 @@ public class Persona {
 		return entidadNacimiento;
 	}
 
-	public Date getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
 	public String getGenero() {
 		return genero;
-	}
-
-	public int getId() {
-		return id;
 	}
 
 	public String getNombre() {
@@ -63,7 +53,7 @@ public class Persona {
 		this.entidadNacimiento = entidadNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
@@ -71,11 +61,26 @@ public class Persona {
 		this.genero = genero;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+	public String enviar() throws ParseException {
+		PersonaDAO personaDAO = new PersonaDAO();
+		
+		Persona persona = new Persona(
+			0,
+			this.nombre,
+			this.apellidos,
+			new Date(DateFormat.getDateInstance(DateFormat.SHORT).parse(this.fechaNacimiento).getTime()),
+			this.genero,
+			this.entidadNacimiento,
+			this.curp
+		);
+		
+		personaDAO.insertarPersona(persona);
+		
+		return "personas";
+	}
+
 }

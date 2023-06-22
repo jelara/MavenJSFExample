@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+  <h:head>
+    <title>Hello JSF</title>
+  </h:head>
+ 
+  <h:body>
+    <h1>Crear nueva persona</h1>
+    
+    <h:form>
+      <h:panelGrid columns="2">
+        <h:outputLabel value="Nombre" for="nombre" />
+        <h:inputText id="nombre" value="#{nuevaPersonaBean.nombre}" />
+        <h:outputLabel value="Apellidos" for="apellidos" />
+        <h:inputText id="apellidos" value="#{nuevaPersonaBean.apellidos}" />
+        <h:outputLabel value="Fecha de nacimiento" for="fechaNacimiento" />
+        <h:inputText id="fechaNacimiento" value="#{nuevaPersonaBean.fechaNacimiento}" />
+        <h:outputLabel value="Género" for="genero" />
+        <h:inputText id="genero" value="#{nuevaPersonaBean.genero}" />
+        <h:outputLabel value="Entidad de nacimiento" for="entidadNacimiento" />
+        <h:inputText id="entidadNacimiento" value="#{nuevaPersonaBean.entidadNacimiento}" />
+        <h:outputLabel value="CURP" for="curp" />
+        <h:inputText id="curp" value="#{nuevaPersonaBean.curp}" />
+      </h:panelGrid>
+    
+	  <h:commandButton value="Enviar" action="#{nuevaPersonaBean.enviar}" />
+    </h:form>
+  </h:body>
+
+</html>

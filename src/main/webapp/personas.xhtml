@@ -1,25 +1,53 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-  <h:head>
-    <title>Hello JSF</title>
-  </h:head>
- 
-  <h:body>
-    <h1>Personas</h1>
-    
-    <h:dataTable value="#{personaBean.personas}" var="persona" >
-      <h:column>
-        <f:facet name = "header">ID</f:facet>
-        <h:outputText value="#{persona.id}" />
-      </h:column>
-      <h:column>
-        <f:facet name = "header">Nombre</f:facet>
-        <h:outputText value="#{persona.nombre}" />
-      </h:column>
-    </h:dataTable>
-  </h:body>
+<h:head>
+	<title>Hello JSF</title>
+</h:head>
+
+<h:body>
+	<h1>Personas</h1>
+
+	<h:form>
+		<h:dataTable value="#{personaBean.personas}" var="persona" binding="#{personaBean.tablaPersonas}">
+			<h:column>
+				<f:facet name="header">ID</f:facet>
+				<h:outputText value="#{persona.id}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Nombre</f:facet>
+				<h:outputText value="#{persona.nombre}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Apellidos</f:facet>
+				<h:outputText value="#{persona.apellidos}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Fecha de nacimiento</f:facet>
+				<h:outputText value="#{persona.fechaNacimiento}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Género</f:facet>
+				<h:outputText value="#{persona.genero}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Entidad de nacimiento</f:facet>
+				<h:outputText value="#{persona.entidadNacimiento}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">CURP</f:facet>
+				<h:outputText value="#{persona.curp}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Eliminar</f:facet>
+				<h:commandLink value="Eliminar" action="#{personaBean.eliminar}" />
+			</h:column>
+		</h:dataTable>
+
+		<h:commandButton value="Nueva persona" action="nuevaPersona" />
+	</h:form>
+</h:body>
 
 </html>
