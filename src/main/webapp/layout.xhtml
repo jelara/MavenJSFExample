@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+  <link rel="stylesheet" href="style/styles.css" />
+  <title>Manejo de mascotas Thincrs - <ui:insert name="titulo">Hello JSF</ui:insert></title>
+</h:head>
+
+<h:body>
+  <div class="topNavigationMenu">
+    <img id="topLogo" src="img/logo.svg" />
+    <h:link outcome="personas" value="Listado de personas" />
+    <h:link outcome="nuevaPersona" value="Crear nueva persona" />
+  </div>
+
+  <ui:insert name="contenido">
+  </ui:insert>
+
+  <div class="bottomFooter">© 2023 Thincrs</div>
+</h:body>
+
+</html>

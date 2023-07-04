@@ -9,6 +9,38 @@ body {
 	border: 1px solid black;
 }
 
+.tablaDatos>thead {
+	background: #808080;
+	color: white;
+}
+
 .tablaDatos>tbody>tr:nth-child(even) {
 	background-color: #C0C0C0;
+}
+
+.topNavigationMenu {
+	background-color: rgb(7, 103, 190);
+	margin: 0px;
+	margin-bottom: 15px;
+}
+
+.topNavigationMenu>#topLogo {
+	height: 50px;
+	background-color: white;
+	border-radius: 10px;
+	margin: 10px;
+	padding: 5px;
+	position: relative;
+}
+
+.topNavigationMenu>a {
+	color: white;
+	position: relative;
+}
+
+.bottomFooter {
+	background-color: rgb(7, 103, 190);
+	color: white;
+	text-align: right;
+	margin-top: 15px;
 }

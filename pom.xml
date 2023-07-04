@@ -1,37 +1,39 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  
   <groupId>com.thincrs</groupId>
   <artifactId>MavenJSFExample</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
-  
   <dependencies>
-	<dependency>
-	    <groupId>org.glassfish</groupId>
-	    <artifactId>jakarta.faces</artifactId>
-	    <version>2.3.19</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.jboss.weld.servlet</groupId>
-	    <artifactId>weld-servlet-shaded</artifactId>
-	    <version>3.0.0.Final</version>
-	</dependency>
-	<dependency>
-	    <groupId>jakarta.servlet.jsp.jstl</groupId>
-	    <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-	    <version>1.2.5</version>
-	</dependency>
-	<dependency> <!-- Optional, only when <f:websocket> is used. -->
-	    <groupId>org.glassfish</groupId>
-	    <artifactId>jakarta.json</artifactId>
-	    <version>1.1.5</version>
-	</dependency>
-	<dependency> <!-- Optional, only when <f:validateBean> or <f:validateWholeBean> is used. -->
-	    <groupId>org.hibernate.validator</groupId>
-	    <artifactId>hibernate-validator</artifactId>
-	    <version>6.0.1.Final</version>
-	</dependency>
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>jakarta.faces</artifactId>
+      <version>2.3.19</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.weld.servlet</groupId>
+      <artifactId>weld-servlet-shaded</artifactId>
+      <version>3.0.0.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.servlet.jsp.jstl</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+      <version>1.2.5</version>
+    </dependency>
+    <dependency>
+      <!-- Optional, only when <f:websocket> is used. -->
+      <groupId>org.glassfish</groupId>
+      <artifactId>jakarta.json</artifactId>
+      <version>1.1.5</version>
+    </dependency>
+    <dependency>
+      <!-- Optional, only when <f:validateBean> or <f:validateWholeBean> is used. -->
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>6.0.1.Final</version>
+    </dependency>
     <dependency>
       <groupId>com.mysql</groupId>
       <artifactId>mysql-connector-j</artifactId>
@@ -39,33 +41,34 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>javax.servlet-api</artifactId>
-   		<version>3.0.1</version>
-   		<scope>provided</scope>
-  	</dependency>
-    
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.0.1</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
-  
   <properties>
-    <maven.compiler.target>17</maven.compiler.target>
-    <maven.compiler.source>17</maven.compiler.source>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-    
-  
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>3.11.0</version>
         <configuration>
           <source>17</source>
           <target>17</target>
         </configuration>
       </plugin>
-      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.4.0</version>
+        <configuration>
+          <webXml>src\main\webapp\WEB-INF\web.xml</webXml>
+        </configuration>
+      </plugin>
     </plugins>
-
   </build>
 </project>

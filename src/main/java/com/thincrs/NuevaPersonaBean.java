@@ -26,30 +26,23 @@ public class NuevaPersonaBean {
 
 	public String enviar() throws ParseException {
 		PersonaDAO personaDAO = new PersonaDAO();
-		
-		Persona persona = new Persona(
-			0,
-			this.nombre,
-			this.apellidos,
-			new Date(this.fechaNacimiento.getTime()),
-			this.genero,
-			this.entidadNacimiento,
-			this.curp
-		);
-		
+
+		Persona persona = new Persona(0, this.nombre, this.apellidos, new Date(this.fechaNacimiento.getTime()),
+				this.genero, this.entidadNacimiento, this.curp);
+
 		int idPersona = personaDAO.insertarPersona(persona);
-		
-		String carpetaFotos = Path.of(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/"), "fotos").toString();
-		
+
+		String carpetaFotos = Path.of(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/"), "fotos")
+				.toString();
+
 		File fileFoto = new File(carpetaFotos, String.valueOf(idPersona));
-		
-	    try (InputStream input = foto.getInputStream()) {
-	        Files.copy(input, fileFoto.toPath());
-	    }
-	    catch (IOException e) {
-	        // Show faces message?
-	    }		
-		return "personas";
+
+		try (InputStream input = foto.getInputStream()) {
+			Files.copy(input, fileFoto.toPath());
+		} catch (IOException e) {
+			// Show faces message?
+		}
+		return "personas?faces-redirect=true";
 	}
 
 	public String getApellidos() {
@@ -103,9 +96,8 @@ public class NuevaPersonaBean {
 	public void setGenero(String genero) {
 		this.genero = genero;
 	}
-	
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 }
