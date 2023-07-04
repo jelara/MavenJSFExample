@@ -4,14 +4,20 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
+    <link rel="stylesheet" href="style/styles.css" />
 	<title>Hello JSF</title>
 </h:head>
 
 <h:body>
+	<img src="img/logo.svg" />
 	<h1>Personas</h1>
 
-	<h:form>
-		<h:dataTable value="#{personaBean.personas}" var="persona" binding="#{personaBean.tablaPersonas}">
+	<h:form id="formPersonas">
+		<h:dataTable id="tablePersonas" value="#{personaBean.personas}" var="persona" styleClass="tablaDatos">
+			<h:column>
+				<f:facet name="header">Foto</f:facet>
+				<h:graphicImage value="/fotos/#{persona.id}" width="20px" />
+			</h:column>
 			<h:column>
 				<f:facet name="header">ID</f:facet>
 				<h:outputText value="#{persona.id}" />
@@ -26,7 +32,9 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">Fecha de nacimiento</f:facet>
-				<h:outputText value="#{persona.fechaNacimiento}" />
+				<h:outputText value="#{persona.fechaNacimiento}">
+					<f:convertDateTime pattern="dd' de 'MMMM' de 'yyyy" locale="es"/>
+				</h:outputText>
 			</h:column>
 			<h:column>
 				<f:facet name="header">Género</f:facet>
@@ -42,7 +50,9 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">Eliminar</f:facet>
-				<h:commandLink value="Eliminar" action="#{personaBean.eliminar}" />
+				<h:commandLink id="linkEliminar" value="Eliminar" action="#{personaBean.eliminar(persona.id)}">
+					<f:ajax execute="linkEliminar" render="formPersonas" />
+				</h:commandLink>
 			</h:column>
 		</h:dataTable>
 

@@ -10,20 +10,24 @@
   <h:body>
     <h1>Crear nueva persona</h1>
     
-    <h:form>
+    <h:form enctype="multipart/form-data">
       <h:panelGrid columns="2">
         <h:outputLabel value="Nombre" for="nombre" />
         <h:inputText id="nombre" value="#{nuevaPersonaBean.nombre}" />
         <h:outputLabel value="Apellidos" for="apellidos" />
         <h:inputText id="apellidos" value="#{nuevaPersonaBean.apellidos}" />
         <h:outputLabel value="Fecha de nacimiento" for="fechaNacimiento" />
-        <h:inputText id="fechaNacimiento" value="#{nuevaPersonaBean.fechaNacimiento}" />
+        <h:inputText id="fechaNacimiento" value="#{nuevaPersonaBean.fechaNacimiento}">
+        	<f:convertDateTime pattern="dd/MM/yyyy" />
+        </h:inputText>
         <h:outputLabel value="Género" for="genero" />
         <h:inputText id="genero" value="#{nuevaPersonaBean.genero}" />
         <h:outputLabel value="Entidad de nacimiento" for="entidadNacimiento" />
         <h:inputText id="entidadNacimiento" value="#{nuevaPersonaBean.entidadNacimiento}" />
         <h:outputLabel value="CURP" for="curp" />
         <h:inputText id="curp" value="#{nuevaPersonaBean.curp}" />
+        <h:outputLabel for="inputFoto" value="Foto" />
+        <h:inputFile id="inputFoto" value="#{nuevaPersonaBean.foto}" />
       </h:panelGrid>
     
 	  <h:commandButton value="Enviar" action="#{nuevaPersonaBean.enviar}" />

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,10 +51,10 @@ public class PersonaDAO {
 		);
 	}
 	
-	public void insertarPersona(Persona persona) {
+	public int insertarPersona(Persona persona) {
 		try {
 			Connection conn = obtenerConexion();
-			PreparedStatement sentencia = conn.prepareStatement(QUERY_INSERTAR);
+			PreparedStatement sentencia = conn.prepareStatement(QUERY_INSERTAR, Statement.RETURN_GENERATED_KEYS);
 			
 			sentencia.setString(1, persona.getNombre());
 			sentencia.setString(2, persona.getApellidos());
@@ -66,9 +67,16 @@ public class PersonaDAO {
 			
 			sentencia.execute();
 			
+			ResultSet generatedKeys = sentencia.getGeneratedKeys();
+			generatedKeys.next();
+			int idGenerado = generatedKeys.getInt(1);
+
 			conn.close();
+			
+			return idGenerado;
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return 0;
 		}
 	}
 	
@@ -91,7 +99,7 @@ public class PersonaDAO {
 	
 	private Connection obtenerConexion() throws SQLException {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
